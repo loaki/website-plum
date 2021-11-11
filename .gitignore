@@ -1,4 +1,3 @@
 Tesseract-OCR/*
-!Tesseract-OCR/tesseract.exe
 __pycache__/*
 virt/*
