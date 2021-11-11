@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% for field, error in form.errors.items() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{', '.join( error )}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<h1><img src="{{ url_for('static', filename='images/icons/register.png') }}"height="65">Inscription</h1>
+</center>
+<div class="card-transparent mx-auto" style="width: 30rem;">
+    <div class="card-body">
+        <form method='POST'>
+        </br>
+        {{ form.hidden_tag() }}
+        {{ form.login.label(class="form-label") }}
+        {{ form.login(class="form-select", autocomplete="off") }}
+        {{ form.password_hash.label(class="form-label") }}
+        {{ form.password_hash(class="form-select", autocomplete="off") }}
+        {{ form.password_hash_confirm.label(class="form-label") }}
+        {{ form.password_hash_confirm(class="form-select", autocomplete="off") }}
+        {{ form.captcha.label(class="form-label") }}
+        <div><img src="{{ url_for('static', filename='images/captcha.png') }}" width=320></div></br>
+        {{ form.captcha(class="form-select", autocomplete="off") }}
+        <br>
+        {{ form.submit(class="btn btn-secondary") }}
+        <br><br>
+        </form>
+    </div>
+</div>
+{% endblock %}

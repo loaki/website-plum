@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<h1><img src="{{ url_for('static', filename='images/logo.png') }}"height="65"> Bienvenue {{current_user.login}}</h1>
+</center>
+<div class="content-sidebar">
+    <div class="col">
+        <img src="{{ url_for('static', filename='images/wallpaper.png') }}" width="100%" >
+        <br><br><p>Nullam non sollicitudin tellus. In ac justo felis. Giftig rend la prytek, non porta ligula fermentum sit amet. Nullam elementum massa convallis erat efficitur consectetur. Etiam commodo ullamcorper congue. Vestibulum eget suscipit felis. Maecenas cursus libero sit amet eleifend hendrerit.</p>
+    </div>
+    <div class="col">
+        <center>
+        <h2 style="color: #857d5c;">Bulletin</h2>
+        </center>
+        <form action="/update-bulletin" method='POST'>
+        <div class="card-transparent mx-auto", style="width: 100%;"></div>
+            <div class="bulletin-body", style="height: 200px;">
+                <br>
+                <div class='flx'>
+                    <div class='bulletin scroll', style="height: 100px;">
+                        <p>
+                            {{ form.text(class="form-transparent scroll", rows="5", maxlength="256") }}
+                        </p>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {{ form.submit(class="btn btn-secondary", style="float: right; margin-right: 30px;") }}
+        </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

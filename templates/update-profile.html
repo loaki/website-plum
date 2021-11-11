@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% for field, error in form.errors.items() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{', '.join( error )}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% if profile_update.login %}
+    <h1><img src="{{ url_for('static', filename='images/icons/settings.png') }}"height="65">Modifier le Profil</h1>
+    </center>
+    <div class="card-transparent mx-auto" style="width: 25rem;">
+        <div class="card-body">
+            <form action="/update-profile/{{ profile_update.id }}" method='POST'>
+            <br>
+            <a class="btn btn-outline-secondary" href="{{url_for('dashboard')}}"><</a>
+            <center>
+                <img src="{{ url_for('static', filename='images/icons/classes/'~current_user.profile_picture~'.png') }}"height="65" style="border-radius: 50%"></br>
+            </center>
+            {{ form.hidden_tag() }}
+            {{ form.login.label(class="form-label") }}
+            {{ form.login(class="form-select", value=profile_update.login, autocomplete="off") }}
+            {{ form.profile_picture.label(class="form-label") }}
+            <select {{ form.profile_picture(class="form-select") }}>
+                <option style="display:none">{{profile_update.profile_picture}}</option>
+                <option value="feca">feca</option>
+                <option value="sadi">sadi</option>
+                <option value="sacri">sacri</option>
+                <option value="panda">panda</option>
+                <option value="roub">roub</option>
+                <option value="zozo">zozo</option>
+                <option value="steam">steam</option>
+                <option value="osa">osa</option>
+                <option value="enu">enu</option>
+                <option value="sram">sram</option>
+                <option value="xel">xel</option>
+                <option value="eca">eca</option>
+                <option value="eni">eni</option>
+                <option value="iop">iop</option>
+                <option value="cra">cra</option>
+                <option value="elio">elio</option>
+                <option value="hupper">hupper</option>
+                <option value="ougi">ougi</option>
+            </select>
+            <br/>
+            {{ form.submit(class="btn btn-secondary") }}
+            </form>
+        </div>
+    </div>
+    </div>
+{% endif %}
+{% endblock %}

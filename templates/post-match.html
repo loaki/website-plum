@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<h1><img src="{{ url_for('static', filename='images/icons/edit.png') }}" height="65">Poster Un Match</h1>
+</center>
+<div class="card-transparent mx-auto" style="width: 45rem;">
+    <div class="card-body">
+        <form method='POST' enctype=multipart/form-data>
+            </br>
+            {{ form.hidden_tag() }}
+            <img src="{{ url_for('static', filename='images/icons/type.png') }}" height="35">{{ form.type.label(class="form-label") }}
+            <select {{ form.type(class="form-select") }}>
+                <option style="display:none"></option>
+                <option value="atk">Attaque</option>
+                <option value="def">Defense</option>
+            </select>
+            <img src="{{ url_for('static', filename='images/icons/objective.png') }}" height="35">{{ form.objective.label(class="form-label") }}
+            <select {{ form.objective(class="form-select") }}>
+                <option style="display:none"></option>
+                <option value="perco">Perco</option>
+                <option value="prisme">Prisme</option>
+            </select>
+            <img src="{{ url_for('static', filename='images/icons/allies.png') }}" height="35">{{ form.allies_list.label(class="form-label") }}
+            <div name="assign_objects">
+                {{ form.allies_list(class="select-allies scroll") }}
+                {{ form.allies_selected(class="select-allies scroll") }}
+            </div>
+            <img src="{{ url_for('static', filename='images/icons/nb_allies.png') }}" height="35">{{ form.nb_allies.label(class="form-label") }}
+            <select {{ form.nb_allies(class="form-select") }}>
+                <option style="display:none"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <img src="{{ url_for('static', filename='images/icons/nb_enemies.png') }}" height="35">{{ form.nb_enemies.label(class="form-label") }}
+            <select {{ form.nb_enemies(class="form-select") }}>
+                <option style="display:none"></option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <img src="{{ url_for('static', filename='images/icons/gift.png') }}" height="35">{{ form.code.label(class="form-label") }}
+            <div>
+                {{ form.code(class="select-code scroll") }}
+            </div>
+            {{ form.csrf_token }}
+            <img src="{{ url_for('static', filename='images/icons/screen.png') }}" height="35">{{ form.screen.label(class="form-label") }}
+            {{ form.screen(class="form-control") }}
+            <br/>
+            {{ form.submit(class="btn btn-secondary") }}
+            </br></br>
+        </form>
+    </div>
+</div>
+{% endblock %}

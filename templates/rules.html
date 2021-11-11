@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    {% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <h1><img src="{{ url_for('static', filename='images/icons/rules.png') }}"height="65" style="border-radius: 50%"> Regles</h1>
+</center>
+<div class="card-transparent mx-auto" style="width: 35rem;">
+    <div class="card-body">
+        <br>
+        <div class='flx'>
+            <div class='logs scroll'>
+                <p>
+                    <b>Recompenses par Saison :</b><br><br>● 1er : 15 000 pépites + 1 place perco supplementaire + un role ds<br>● 2eme : 10 000 pépites + 1 role ds <br>● 3eme : 5000 pépite<br><br>
+                    <b>Points :</b><br><br>● chaque ennemi vaut 1 point<br>● def = +2<br>● prisme = +5<br>● code = +X<br>● x10<br>les points sont repartis entre les allies<br><br>
+                    <b>Codes :</b><br><br>● River (+3)<br>● Def de Nuit 1h-8h (+2)<br>
+                </p>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock %}

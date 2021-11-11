@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+    <h1><img src="{{ url_for('static', filename='images/icons/guild.png') }}"height="65">Utilisateurs </h1>
+    </center>
+    <table id="users" class="table table-hover table-dark table-bordered table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Login</th>
+              <th scope="col">Permission</th>
+              <th scope="col">Date</th>
+              <th scope="col"></th>
+            </tr>
+        </thead>
+        {% for user in users %}
+            <tr>
+                <td> {{user.id}}. </td>
+                <td> <img src="{{ url_for('static', filename='images/icons/classes/'~user.profile_picture~'.png') }}" height="25" style="border-radius: 50%"> {{user.login}} </td>
+                <td> {{user.permission}} </td>
+                <td> {{user.date_added}} </td>
+                <td>
+                    {% if current_user.permission >= '2. Admin' and current_user.permission > user.permission %}
+                        <a class="btn btn-outline-secondary" href="{{url_for('update_user', id = user.id)}}">Modifier</a>
+                        <a class="btn btn-outline-danger" href="{{ url_for('confirm_delete', item='user', id=user.id, prev_link='users') }}">Supprimer </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        $(document).ready(function() {
+            var table = $('#users').DataTable( {
+                responsive: true,
+                "pageLength": 10,
+                "lengthChange": false,
+                searching: false, 
+                info: false,
+                ordering: false
+            } );
+            table.on('page.dt', function() {
+                window.scrollTo(0, 0)
+            });
+        } );
+    </script>
+{% endblock %}

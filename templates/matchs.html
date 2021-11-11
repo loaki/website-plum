@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<h1><img src="{{ url_for('static', filename='images/icons/screen.png') }}"height="65">Matchs</h1>
+</center>
+<table id="matchs" class="table table-hover table-dark table-bordered table-striped">
+    <thead>
+        <tr>
+            <th> Infos </th>
+            <th> Screen </th>
+        </tr>
+    </thead>
+    {% for match in match_list %}
+        {% if match.valid %}
+            <tr>
+                <td>
+                    <b>{{match.id}}. </b></br>
+                    <b><img src="{{ url_for('static', filename='images/icons/type.png') }}" height="35"> Type : </b>{{match.type}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/objective.png') }}" height="35"> objectif : </b>{{match.objective}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/allies.png') }}" height="35"> Allies : </b>{{match.allies_login}} </br> 
+                    <b><img src="{{ url_for('static', filename='images/icons/nb_allies.png') }}" height="35"> Nombre Allies : </b>{{match.nb_allies}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/nb_enemies.png') }}" height="35"> Nombre Ennemis : </b>{{match.nb_enemies}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/gift.png') }}" height="35"> Code : </b>{{ match.code }} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/write.png') }}" height="35"> Auteur : </b>{{match.author}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/date.png') }}" height="35"> Date : </b>{{match.date_posted}} </br>
+                    <b><img src="{{ url_for('static', filename='images/icons/points.png') }}" height="35"> Points : </b>{{match.points}} par Allie</br></br>
+                    {% if current_user.permission >= '2. Admin' %}
+                        <a class="btn btn-outline-secondary" href="{{ url_for('remove_match', id=match.id) }}"> Retirer </a>
+                        <a class="btn btn-outline-danger" href="{{ url_for('confirm_delete', item='match', id=match.id, prev_link='matchs') }}"> Supprimer </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <div>
+                        <img src="{{ url_for('get_img', id=match.id) }}" class='screen'>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+<script>
+    $(document).ready(function() {
+        var table = $('#matchs').DataTable( {
+            responsive: true,
+            "pageLength": 10,
+            "lengthChange": false,
+            searching: false, 
+            info: false,
+            ordering: false
+        } );
+        table.on('page.dt', function() {
+                window.scrollTo(0, 0)
+        });
+    } );
+</script>
+{% endblock %}

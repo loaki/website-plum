@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    <h1><img src="{{ url_for('static', filename='images/icons/delete.png') }}"height="65">Supprimer {{item}} {{id}} ?</h1>
+    {% if item == "user" %}
+    <a class="btn btn-outline-secondary" href="{{url_for(prev_link)}}">Non </a>
+    <a class="btn btn-outline-danger" href="{{ url_for('delete_user', id=id, prev_link=prev_link) }}">Oui</a>
+    {% elif item == "match" %}
+    <a class="btn btn-outline-secondary" href="{{url_for(prev_link)}}">Non </a>
+    <a class="btn btn-outline-danger" href="{{ url_for('delete_match', id=id, prev_link=prev_link) }}">Oui</a>
+    {% endif %}
+</center>
+{% endblock %}

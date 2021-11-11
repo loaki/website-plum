@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" id="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('index')}}">
+            <img src="{{ url_for('static', filename='images/logo.gif') }}" height="40">
+        </a>
+        <div class="navbar-nav me-auto" id="navbarNavDropdown">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Templiers</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="/ladder/0-0"><img src="{{ url_for('static', filename='images/icons/ladder.png') }}"height="30"> Classement</a></li>
+                    <li><a class="dropdown-item" href="/matchs"><img src="{{ url_for('static', filename='images/icons/screen.png') }}"height="30"> Matchs</a></li>
+                    <li><a class="dropdown-item" href="/rules"><img src="{{ url_for('static', filename='images/icons/rules.png') }}"height="30"> Regles</a></li>
+                    {% if current_user.is_authenticated and current_user.permission  >= '1. Member' %}
+                        <li><a class="dropdown-item" href="/users"><img src="{{ url_for('static', filename='images/icons/guild.png') }}"height="30"> Utilisateurs {% if current_user.is_authenticated and current_user.permission  >= '2. Admin' and users_to_valid > 0 %}({{ users_to_valid }}){% endif %}</a></li>
+                        {% if current_user.is_authenticated and current_user.permission  >= '2. Admin' %}
+                            <li><a class="dropdown-item" href="/matchs-to-valid"><img src="{{ url_for('static', filename='images/icons/match.png') }}"height="30"> Matchs A Valider {% if matchs_to_valid > 0 %}({{ matchs_to_valid }}){% endif %}</a></li>
+                            <li><a class="dropdown-item" href="/logs"><img src="{{ url_for('static', filename='images/icons/settings.png') }}"height="30"> Logs</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </li>
+            {% if current_user.is_authenticated and current_user.permission  >= '2. Admin' and (matchs_to_valid > 0 or users_to_valid > 0) %}
+                <div class="number-circle">{{ matchs_to_valid + users_to_valid }}</div>
+            {% endif %}
+            <ul class="nav navbar-nav">
+                <a class="nav-link" href="/post-match"><img src="{{ url_for('static', filename='images/icons/edit.png') }}"height="25"> Poster Un Match</a>
+            </ul>
+        {% if current_user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <a class="nav-link" href="/dashboard"><img src="{{ url_for('static', filename='images/icons/classes/'~current_user.profile_picture~'.png') }}" height="25" style="border-radius: 50%"> {{ current_user.login }}</a>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav">
+                <a class="nav-link" href="/login"><img src="{{ url_for('static', filename='images/icons/user.png') }}" height="25" style="border-radius: 50%"> Connexion</a>
+            </ul>
+        {% endif %}
+    </div>
+</nav>

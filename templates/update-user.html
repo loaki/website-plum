@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+{% for message in get_flashed_messages() %}
+    <div class="alert fade show" role="alert">
+        <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% if user_update.login %}
+    <h1><img src="{{ url_for('static', filename='images/icons/settings.png') }}"height="65">Modifier l'Utilisateur</h1>
+    </center>
+    <div class="card-transparent mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <br>
+            <form action="/update-user/{{ user_update.id }}" method='POST'>
+            {{ form.hidden_tag() }}
+            {{ form.login.label(class="form-label") }}
+            <input class="form-select" readonly="readonly" value={{user_update.login}}></input>
+            {{ form.permission.label(class="form-label") }}
+            <select {{ form.permission(class="form-select") }}>
+                <option style="display:none">{{user_update.permission}}</option>
+                <option value="0. Visitor">0. visitor</option>
+                <option value="1. Member">1. member</option>
+                <option value="2. Admin">2. admin</option>
+                {% if current_user.permission > '2. Admin' %}
+                    <option value="3. Owner">3. owner</option>
+                {% endif %}
+            </select>
+            <br>
+            {{ form.submit(class="btn btn-secondary") }}
+            <br>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endif %}
+{% endblock %}

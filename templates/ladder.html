@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+    {% for message in get_flashed_messages() %}
+        <div class="alert fade show" role="alert">
+            <img src="{{ url_for('static', filename='images/icons/alert.png') }}"height="35">{{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+        <h1><img src="{{ url_for('static', filename='images/icons/ladder.png') }}"height="65">Classement</h1>
+    </center>
+    <div class="btn-group dropend">
+        <button class="btn btn-outline-secondary dropdown-toggle btn-shadow" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if month == 0 %}
+                General
+            {% else %}
+                Saison {{month}}/{{year}}
+            {% endif %}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item" href="/ladder/0-0">General</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% for season in season_list %}
+                <li><a class="dropdown-item" href="/ladder/{{season.0}}-{{season.1}}">{{season.0}}-{{season.1}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br><br>
+    <table id="ladder" class="table table-hover table-dark table-bordered table-striped" id="ladder">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Login</th>
+                <th scope="col">Nombre Attaques</th>
+                <th scope="col">Nombre Defenses</th>
+                <th scope="col">Nombre Matchs</th>
+                <th scope="col">Points Attaques</th>
+                <th scope="col">Points Defenses</th>
+                <th scope="col">Points Total</th>
+            </tr>
+        </thead>
+        {% for ladder in ladder_list %}
+            <tr>
+                <td> {{ ladder_list.index(ladder) + 1 }} </td>
+                <td> <img src="{{ url_for('static', filename='images/icons/classes/'~ladder.profile_picture~'.png') }}" height="25" style="border-radius: 50%"> {{ ladder.login }} </td>
+                <td> {{ ladder.nb_atk }} </td>
+                <td> {{ ladder.nb_def }} </td>
+                <td> {{ ladder.nb_total }} </td>
+                <td> {{ ladder.pt_atk }} </td>
+                <td> {{ ladder.pt_def }} </td>
+                <td> {{ ladder.pt_total }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        $(document).ready(function() {
+            var table = $('#ladder').DataTable( {
+                responsive: true,
+                "pageLength": 10,
+                "lengthChange": false,
+                searching: false, 
+                info: false,
+                ordering: false
+            } );
+            table.on('page.dt', function() {
+                window.scrollTo(0, 0)
+            });
+        } );
+    </script>
+{% endblock %}
