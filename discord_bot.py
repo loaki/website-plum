@@ -46,5 +46,6 @@ async def on_message(message):
             await message.channel.send(img_to_str(image))
             await message.add_reaction("✅")
             #await message.channel.send(file=discord.File('test.png'))
+            await message.channel.send(message.author.id)
 
 bot.run(TOKEN)

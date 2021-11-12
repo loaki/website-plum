@@ -6,7 +6,7 @@ def ocr(file_name):
     #tesseract OCR
     # https://github.com/UB-Mannheim/tesseract/wiki
     
-    pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR/tesseract.exe'
+    #pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR/tesseract.exe'
     #pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
     customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
     ocr_text = pytesseract.image_to_string(file_name, config=customconf)
@@ -65,7 +65,7 @@ def img_to_str(img):
     #print(text_list)
     #cv2.imshow('captcha_result', img)
     #cv2.waitKey()
-    cv2.imwrite('ocr.png' , img)
+    #cv2.imwrite('ocr.png' , img)
     text_list.reverse()
     return(text_list)
 
