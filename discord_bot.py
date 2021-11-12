@@ -38,6 +38,7 @@ async def on_ready():
 async def on_message(message):
     await bot.process_commands(message)
     if message.channel.id == 864167588837064725 and message.author.id != 272117022622482432:
+        await message.channel.send('ok')
         if message.attachments:
             url = message.attachments[0].url
             resp = requests.get(url, stream=True).raw
