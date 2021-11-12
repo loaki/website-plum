@@ -1,6 +1,7 @@
 import cv2
-import pytesseract
+#import pytesseract
 import sys
+import keras_ocr
 
 def ocr(file_name):
     #tesseract OCR
@@ -8,9 +9,13 @@ def ocr(file_name):
     
     #pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR/tesseract.exe'
     #pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-    customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
+    '''customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
     ocr_text = pytesseract.image_to_string(file_name, config=customconf)
-    return(ocr_text.replace('\n\f', ''))
+    return(ocr_text.replace('\n\f', ''))'''
+    pipeline = keras_ocr.pipeline.Pipeline()
+    #image = keras_ocr.tools.read(img)
+    prediction_groups = pipeline.recognize(file_name)
+    return(prediction_groups)
 
 def img_to_str(img):
     img_final = img

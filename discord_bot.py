@@ -5,7 +5,6 @@ from ocr import img_to_str
 import cv2
 import numpy as np
 import requests
-import keras_ocr
 
 #TOKEN = 'Nzg5NjY0MTg2MjU0NjIyNzMw.X91WFQ.raTu5tULhisu8qI-7TipiNYXXPM' #bot token
 TOKEN = 'ODQ3OTQ0OTc4NzU5OTQyMTQ0.YLFcTA.7xU4Ad_t7zCX4AQQvLmPV9VOhRE' #test bot
