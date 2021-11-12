@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
+import tensorflow
 import keras_ocr
-import sys 
+import sys
 
 def ocr(img):
     pipeline = keras_ocr.pipeline.Pipeline()
