@@ -31,7 +31,7 @@ def img_to_str(img):
         [x, y, w, h] = cv2.boundingRect(contour)
         #players 9 
         if (x / img.shape[1] * 100) > 7 and (x / img.shape[1] * 100) < 15 and (w / img.shape[1] * 100) > 3 and (h / img.shape[0] * 100) > 2:
-            #cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             cropped = img_final[y :y +  h , x : x + w]
             cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
             text_list.append(ocr(cropped))
@@ -39,7 +39,7 @@ def img_to_str(img):
 
         #victory/defeat 3
         elif (x / img.shape[1] * 100) > 1 and (x / img.shape[1] * 100) < 5 and (w / img.shape[1] * 100) > 5 and (y / img.shape[0] * 100) < 6:
-            #cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cropped = img_final[y :y +  h , x : x + w]
             #cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
             cv2.imwrite('163dsfg-fail.png' , cropped)
@@ -48,15 +48,15 @@ def img_to_str(img):
 
         #winners/loosers 5
         elif (x / img.shape[1] * 100) > 4 and (x / img.shape[1] * 100) < 8 and (w / img.shape[1] * 100) > 5 and (h / img.shape[0] * 100) > 2:
-            #cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
             cropped = img_final[y :y +  h , x : x + w]
             cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
             text_list.append(ocr(cropped))
             #print('img w=',img.shape[1],'img h=',img.shape[0], '| x=', x,'| y=', y, '| w=', w,'| h=', h, '|', ocr(cropped))
-        
-        '''else:
+
+        else:
             cv2.rectangle(img, (x, y), (x + w, y + h), (100, 100, 100), 2)
-            cropped = img_final[y :y +  h , x : x + w]
+        ''' cropped = img_final[y :y +  h , x : x + w]
             cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
             print('img w=',img.shape[1], 'img h=',img.shape[0], '| x=', x,'| y=', y, '| w=', w,'| h=', h, '|', ocr(cropped))'''
 
@@ -65,7 +65,7 @@ def img_to_str(img):
     #print(text_list)
     #cv2.imshow('captcha_result', img)
     #cv2.waitKey()
-    cv2.imwrite('test.png' , cropped)
+    cv2.imwrite('test.png' , img)
     text_list.reverse()
     return(text_list)
 
