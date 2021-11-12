@@ -7,7 +7,7 @@ def ocr(file_name):
     # https://github.com/UB-Mannheim/tesseract/wiki
     
     #pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR/tesseract.exe'
-    pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+    #pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
     customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
     ocr_text = pytesseract.image_to_string(file_name, config=customconf)
     return(ocr_text.replace('\n\f', ''))
