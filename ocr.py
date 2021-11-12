@@ -65,7 +65,7 @@ def img_to_str(img):
     #print(text_list)
     #cv2.imshow('captcha_result', img)
     #cv2.waitKey()
-    #cv2.imwrite(str(i)+'.png' , cropped)
+    cv2.imwrite('test.png' , cropped)
     text_list.reverse()
     return(text_list)
 
