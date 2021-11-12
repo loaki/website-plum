@@ -45,6 +45,6 @@ async def on_message(message):
             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
             await message.channel.send(img_to_str(image))
             await message.add_reaction("✅")
-            await message.send(file=discord.File('test.png'))
+            await message.channel.send(file=discord.File('test.png'))
 
 bot.run(TOKEN)
