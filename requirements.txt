@@ -26,6 +26,7 @@ Werkzeug==2.0.1
 WTForms==2.3.3
 # discord bot
 discord.py==1.7.3
-opencv-python==4.5.4.58
+#opencv-python==4.5.4.58
+opencv-python-headless==4.5.3.56
 pytesseract==0.3.8
 requests==2.26.0
