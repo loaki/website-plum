@@ -1,6 +1,6 @@
 import cv2
-#import pytesseract
-import easyocr
+import pytesseract
+#import easyocr
 import sys
 
 def ocr(file_name):
@@ -9,11 +9,11 @@ def ocr(file_name):
     
     #pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR/tesseract.exe'
     #pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-    #customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
-    #ocr_text = pytesseract.image_to_string(file_name, config=customconf)
-    #return(ocr_text.replace('\n\f', ''))
-    reader = easyocr.Reader(['en'])
-    return(reader.readtext(file_name)[0][1])
+    customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
+    ocr_text = pytesseract.image_to_string(file_name, config=customconf)
+    return(ocr_text.replace('\n\f', ''))
+    #reader = easyocr.Reader(['en'])
+    #return(reader.readtext(file_name)[0][1])
 
 def img_to_str(img):
     img_final = img

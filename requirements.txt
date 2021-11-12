@@ -28,6 +28,6 @@
 discord.py==1.7.3
 #opencv-python==4.5.4.58
 opencv-python-headless==4.5.3.56
-#pytesseract==0.3.8
+#easyocr==1.4.1
+pytesseract==0.3.8
 requests==2.26.0
-easyocr==1.4.1

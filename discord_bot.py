@@ -37,7 +37,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    if message.channel.id == 864167588837064725:
+    if message.channel.id == 864167588837064725 and message.author.id != 272117022622482432:
         if message.attachments:
             url = message.attachments[0].url
             resp = requests.get(url, stream=True).raw
@@ -46,6 +46,6 @@ async def on_message(message):
             await message.channel.send(img_to_str(image))
             await message.add_reaction("✅")
             #await message.channel.send(file=discord.File('test.png'))
-            await message.channel.send(message.author.id)
+            #await message.channel.send(message.author.id)
 
 bot.run(TOKEN)
