@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import tensorflow
 import keras_ocr
 import sys
 
