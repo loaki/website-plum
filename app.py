@@ -57,7 +57,7 @@ class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
-    permission = db.Column(db.String(128), default='9000')
+    permission = db.Column(db.String(128), default='')
     profile_picture = db.Column(db.String(128), default='dd')
     guild = db.Column(db.String(128), default='')
     date_added = db.Column(db.DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
