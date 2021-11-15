@@ -12,7 +12,8 @@ TOKEN = 'ODQ3OTQ0OTc4NzU5OTQyMTQ0.YLFcTA.7xU4Ad_t7zCX4AQQvLmPV9VOhRE' #test bot
 bot = commands.Bot(command_prefix = '!')
 bot.remove_command('help')
 admin = 272117022622482432
-chan = 864167588837064725
+#chan = 864167588837064725 #test
+chan = 896778543583887482 #templiers
 
 @bot.event
 async def on_ready():
