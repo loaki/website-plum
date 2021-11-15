@@ -1,27 +1,7 @@
 import cv2
-import pytesseract
-#import easyocr
+#import pytesseract
+import easyocr
 import sys
-import parsel
-
-def parse_xml(xml):
-    """
-    parse xml text to be accessed through xpath
-    :param xml: xml text
-    :type xml: str
-    :return: parsel.selector.Selector
-    :rtype: object
-    """
-    # setup xml parser
-    parsel.Selector.__str__ = parsel.Selector.extract
-    parsel.Selector.__repr__ = parsel.Selector.__str__
-    parsel.SelectorList.__repr__ = lambda x: '[{}]'.format(
-        '\n '.join("({}) {!r}".format(i, repr(s))
-                   for i, s in enumerate(x, start=1))
-    ).replace(r'\n', '\n')
-
-    doc = parsel.Selector(text=xml)
-    return doc
 
 def ocr(file_name):
     #tesseract OCR
@@ -32,19 +12,9 @@ def ocr(file_name):
     #customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
     #ocr_text = pytesseract.image_to_string(file_name, config=customconf)
     #return(ocr_text.replace('\n\f', ''))
-    customconf = """-c tessedit_char_whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'- " --psm 6"""
-    hocr = pytesseract.image_to_pdf_or_hocr(file_name, extension='hocr')
-    #tsa_output = pytesseract.image_to_string(cropped)
-    xml = hocr.decode('utf-8')
-    doc = parse_xml(xml)
-    tsa_output = []
 
-    # get text
-    for tag in doc.xpath('/html/body/div/div/p/span/span'):
-        tsa_output.append(str(tag.xpath('text()')[0]))
-    return(tsa_output)
-    #reader = easyocr.Reader(['en'])
-    #return(reader.readtext(file_name)[0][1])
+    reader = easyocr.Reader(['en'],gpu=False)
+    return(reader.readtext(file_name)[0][1])
 
 def img_to_str(img):
     img_final = img
@@ -99,7 +69,7 @@ def img_to_str(img):
     #print(text_list)
     #cv2.imshow('captcha_result', img)
     #cv2.waitKey()
-    #cv2.imwrite('ocr.png' , img)
+    cv2.imwrite('ocr.png' , img)
     text_list.reverse()
     return(text_list)
 
