@@ -32,6 +32,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Login</th>
+                <th scope="col">Guilde</th>
                 <th scope="col">Nombre Attaques</th>
                 <th scope="col">Nombre Defenses</th>
                 <th scope="col">Nombre Matchs</th>
@@ -44,6 +45,7 @@
             <tr>
                 <td> {{ ladder_list.index(ladder) + 1 }} </td>
                 <td> <img src="{{ url_for('static', filename='images/icons/classes/'~ladder.profile_picture~'.png') }}" height="25" style="border-radius: 50%"> {{ ladder.login }} </td>
+                <td> {{ ladder.guild }} </td>
                 <td> {{ ladder.nb_atk }} </td>
                 <td> {{ ladder.nb_def }} </td>
                 <td> {{ ladder.nb_total }} </td>

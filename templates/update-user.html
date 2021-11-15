@@ -28,6 +28,13 @@
                     <option value="3. Owner">3. owner</option>
                 {% endif %}
             </select>
+            {{ form.guild.label(class="form-label") }}
+            <select {{ form.guild(class="form-select") }}>
+                <option style="display:none">{{user_update.guild}}</option>
+                <option value="Templier">Templier</option>
+                <option value="Stone">Stone</option>
+                <option value="Vox">Vox</option>
+            </select>
             <br>
             {{ form.submit(class="btn btn-secondary") }}
             <br>

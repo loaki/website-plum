@@ -28,6 +28,13 @@
             {{ form.hidden_tag() }}
             {{ form.login.label(class="form-label") }}
             {{ form.login(class="form-select", value=profile_update.login, autocomplete="off") }}
+            {{ form.guild.label(class="form-label") }}
+            <select {{ form.guild(class="form-select") }}>
+                <option style="display:none">{{profile_update.guild}}</option>
+                <option value="Templier">Templier</option>
+                <option value="Stone">Stone</option>
+                <option value="Vox">Vox</option>
+            </select>
             {{ form.profile_picture.label(class="form-label") }}
             <select {{ form.profile_picture(class="form-select") }}>
                 <option style="display:none">{{profile_update.profile_picture}}</option>

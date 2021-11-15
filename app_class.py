@@ -11,6 +11,7 @@ class UserForm(FlaskForm):
     password_hash = PasswordField('Mot de Passe', validators=[DataRequired()])
     password_hash_confirm = PasswordField('Confirmation Mot de Passe', validators=[DataRequired(), EqualTo('password_hash', message="Passwords must match")])
     captcha = StringField('Captcha', validators=[DataRequired()])
+    guild = StringField('Guilde')
     permission = StringField('Permission')
     profile_picture = StringField('Photo de Profil')
     submit = SubmitField('Valider')
@@ -51,6 +52,7 @@ class Match():
 class Ladder():
     id = 0
     login = ''
+    guild = ''
     profile_picture = ''
     pt_atk = 0
     pt_def = 0

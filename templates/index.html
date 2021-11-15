@@ -24,9 +24,11 @@
                 <div class='flx'>
                     <div class='bulletin scroll', style="height: 100px;">
                         <p>
-                            {% for line in bulletin.splitlines() %}
-                                {{ line }}<br>
-                            {% endfor%}
+                            {% if bulletin %}
+                                {% for line in bulletin.splitlines() %}
+                                    {{ line }}<br>
+                                {% endfor%}
+                            {% endif %}
                         </p>
                     </div>
                 </div>
