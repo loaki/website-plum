@@ -13,16 +13,32 @@
     <div class="btn-group dropend">
         <button class="btn btn-outline-secondary dropdown-toggle btn-shadow" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
             {% if month == 0 %}
-                General
+                Saison
             {% else %}
                 Saison {{month}}/{{year}}
             {% endif %}
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="/ladder/0-0">General</a></li>
+            <li><a class="dropdown-item" href="/ladder/0-0/{{guild}}">General</a></li>
             <li><hr class="dropdown-divider"></li>
             {% for season in season_list %}
-                <li><a class="dropdown-item" href="/ladder/{{season.0}}-{{season.1}}">{{season.0}}-{{season.1}}</a></li>
+                <li><a class="dropdown-item" href="/ladder/{{season.0}}-{{season.1}}/{{guild}}">{{season.0}}-{{season.1}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="btn-group dropend">
+        <button class="btn btn-outline-secondary dropdown-toggle btn-shadow" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if guild == '0' %}
+                Guilde
+            {% else %}
+                {{guild}}
+            {% endif %}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item" href="/ladder/{{month}}-{{year}}/0">General</a></li> 
+            <li><hr class="dropdown-divider"></li>
+            {% for guild in guild_list %}
+                <li><a class="dropdown-item" href="/ladder/{{month}}-{{year}}/{{guild}}">{{guild}}</a></li>
             {% endfor %}
         </ul>
     </div>

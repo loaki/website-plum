@@ -30,8 +30,9 @@ class MatchForm(FlaskForm):
     nb_allies = StringField('Nombre Allies', validators=[DataRequired()])
     nb_enemies = StringField('Nombre Ennemis', validators=[DataRequired()])
     code = SelectMultipleField('Code', choices=[(0, "Audio no noob no arnak (+0)"),
-                                                (3, "River (+3)"),
-                                                (2, "Def de Nuit 1h-8h (+2)")])
+                                                (2, "Def de Nuit 1h-8h (+2)"),
+                                                (2, "River/Seek (+2)"),
+                                                (3, "5v5 sans Eni (+3)")])
     screen = FileField('Screen', validators=[DataRequired()])
     submit = SubmitField('Valider')
 

@@ -57,7 +57,7 @@ class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
-    permission = db.Column(db.String(128), default='8')
+    permission = db.Column(db.String(128), default='')
     profile_picture = db.Column(db.String(128), default='dd')
     guild = db.Column(db.String(128), default='')
     date_added = db.Column(db.DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
@@ -273,6 +273,7 @@ def update_user(id):
         return render_template('403.html')
     if request.method == 'POST':
         user_update.permission = request.form['permission']
+        user_update.guild = request.form['guild']
         try:
             db.session.commit()
             flash('Utilisateur Modifie')
@@ -317,7 +318,7 @@ def update_profile(id):
         return render_template('403.html')
     if request.method == 'POST':
         user = Users.query.filter_by(login=form.login.data).first()
-        if re.match(re.compile(r"^(?=.{4,12}$)[a-zA-Z0-9-]*$"), request.form['login']):
+        if re.match(re.compile(r"^(?=.{4,20}$)[a-zA-Z0-9-]*$"), request.form['login']):
             if user is None or current_user.login == request.form['login']:
                 profile_update.login = request.form['login']
                 profile_update.profile_picture = request.form['profile_picture']
@@ -330,7 +331,7 @@ def update_profile(id):
                     flash('Error During Update')
                     return redirect(url_for('dashboard'))
         else:
-            flash("Login doit etre alphanum et 4-12 char")
+            flash("Login doit etre alphanum et 4 a 20 char")
         if user is not None:
             flash("{} est deja utilise".format(user.login))
     return render_template('update-profile.html',
@@ -586,20 +587,24 @@ def update_match(id):
         match_update=match_update)
 
 ### LADDER ###
-@app.route('/ladder/<int:month>-<int:year>', methods=['GET', 'POST'])
+@app.route('/ladder/<int:month>-<int:year>/<guild>', methods=['GET', 'POST'])
 @login_required
-def ladder(month, year):
+def ladder(month, year, guild):
     season_list = []
     ladder_list = []
+    guild_list = []
     users = Users.query.order_by(Users.login)
     matchs = MatchPost.query.order_by(MatchPost.date_posted.desc())
     for user in users:
-        allie = Ladder()
-        allie.id = user.id
-        allie.login = user.login
-        allie.guild = user.guild
-        allie.profile_picture = user.profile_picture
-        ladder_list.append(allie)
+        if user.guild not in guild_list:
+            guild_list.append(user.guild)
+        if guild == '0' or user.guild == guild:
+            allie = Ladder()
+            allie.id = user.id
+            allie.login = user.login
+            allie.guild = user.guild
+            allie.profile_picture = user.profile_picture
+            ladder_list.append(allie)
     for match in matchs:
         if match.valid:
             if (match.date_posted.month, match.date_posted.year) not in season_list:
@@ -628,7 +633,9 @@ def ladder(month, year):
         ladder_list=sorted(ladder_list, key=lambda x: x.pt_total, reverse=True),
         month=month,
         year=year,
-        season_list=season_list)
+        guild=guild,
+        season_list=season_list,
+        guild_list=guild_list)
 
 ### MAIN ###
 if __name__=='__main__': 
