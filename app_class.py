@@ -7,7 +7,7 @@ from wtforms.widgets import TextArea
 
 ### USER ###
 class UserForm(FlaskForm):
-    login = StringField('Pseudo', validators=[DataRequired(), Regexp('^(?=.{4,12}$)[a-zA-Z0-9]*$', message="Login must be alphanum and 4-12 long")])
+    login = StringField('Pseudo', validators=[DataRequired(), Regexp('^(?=.{4,12}$)[a-zA-Z0-9-]*$', message="Login must be alphanum and 4-12 long")])
     password_hash = PasswordField('Mot de Passe', validators=[DataRequired()])
     password_hash_confirm = PasswordField('Confirmation Mot de Passe', validators=[DataRequired(), EqualTo('password_hash', message="Passwords must match")])
     captcha = StringField('Captcha', validators=[DataRequired()])
