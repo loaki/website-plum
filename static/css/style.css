@@ -14,6 +14,10 @@ p {
     color: #555555;
 }
 
+.paginate_button {
+    color: #fbbb42;
+}
+
 .alert {
     background-size: contain;
     background-image: url('../images/alert.png');
