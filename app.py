@@ -37,11 +37,11 @@ python -m flask run
 
 ### CONFIG ###
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-#uri = os.environ.get("DATABASE_URL")
-#if uri.startswith("postgres://"):
-#    uri = uri.replace("postgres://", "postgresql://", 1)
-#app.config['SQLALCHEMY_DATABASE_URI'] = uri
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+uri = os.environ.get("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SECRET_KEY'] = 'Y6j^cPzk5b!&2&Hd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 2
@@ -57,7 +57,7 @@ class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
-    permission = db.Column(db.String(128), default='8')
+    permission = db.Column(db.String(128), default='')
     profile_picture = db.Column(db.String(128), default='dd')
     guild = db.Column(db.String(128), default='')
     date_added = db.Column(db.DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
